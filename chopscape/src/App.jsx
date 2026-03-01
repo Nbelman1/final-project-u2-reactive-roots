@@ -112,22 +112,28 @@ function App() {
 
         {/* No header and footer */}
         <Route path='/game' element={
-          <div className='game-container'>
-            <GameInterface 
-              inventory={inventory} 
-              messages={messages}
-              currentLevel={currentLevel}
-              isChopping={isChopping}
-              expRef={expRef} 
-              isChoppingRef={isChoppingRef}
-              onStartGlobalChop={handleStartGlobalChop}
-              onStopGlobalChop={handleStopGlobalChop}
-              onGainExp={handleGainExp}
-              onAddToInventory={handleAddToInventory}
-              onAddMessage={handleAddMessage}
-            />
-            <div className='interface-container'>
+          <div className='game-layout'>
+            <div className='area-gameworld'>
+              <GameInterface 
+                inventory={inventory} 
+                messages={messages}
+                currentLevel={currentLevel}
+                isChopping={isChopping}
+                expRef={expRef} 
+                isChoppingRef={isChoppingRef}
+                onStartGlobalChop={handleStartGlobalChop}
+                onStopGlobalChop={handleStopGlobalChop}
+                onGainExp={handleGainExp}
+                onAddToInventory={handleAddToInventory}
+                onAddMessage={handleAddMessage}
+              />
+            </div>
+
+            <div className='area-messages'>
               <MessageLog messages={messages} />
+            </div>
+
+            <div className='area-interface'>
               <InterfaceTabs 
                 inventory={inventory}
                 messages={messages}
