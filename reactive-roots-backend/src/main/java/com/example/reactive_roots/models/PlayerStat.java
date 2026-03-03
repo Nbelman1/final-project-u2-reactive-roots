@@ -1,6 +1,10 @@
 package com.example.reactive_roots.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "player_stats")
@@ -8,32 +12,37 @@ public class PlayerStat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int statId;
+    private int id;
 
     @OneToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
     private int expWoodcutting;
 
     private int levelWoodcutting;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<InventoryItem> inventoryItems;
+
     public PlayerStat() {
     }
 
-    public PlayerStat(int statId, User user, int expWoodcutting, int levelWoodcutting) {
-        this.statId = statId;
+    public PlayerStat(int id, User user, int expWoodcutting, int levelWoodcutting) {
+        this.id = id;
         this.user = user;
         this.expWoodcutting = expWoodcutting;
         this.levelWoodcutting = levelWoodcutting;
     }
 
-    public int getStatId() {
-        return statId;
+    public int getid() {
+        return id;
     }
 
-    public void setStatId(int statId) {
-        this.statId = statId;
+    public void setid(int id) {
+        this.id = id;
     }
 
     public User getUser() {
@@ -63,7 +72,7 @@ public class PlayerStat {
     @Override
     public String toString() {
         return "PlayerStat{" +
-                "statId=" + statId +
+                "id=" + id +
                 ", userId=" + user +
                 ", expWoodcutting=" + expWoodcutting +
                 ", levelWoodcutting=" + levelWoodcutting +

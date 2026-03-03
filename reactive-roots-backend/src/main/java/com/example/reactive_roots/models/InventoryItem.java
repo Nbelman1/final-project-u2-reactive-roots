@@ -9,7 +9,7 @@ public class InventoryItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer itemId;
+    private Integer id;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -25,20 +25,20 @@ public class InventoryItem {
     public InventoryItem() {
     }
 
-    public InventoryItem(Integer itemId, User user, String itemName, Integer quantity, Integer slotPosition) {
-        this.itemId = itemId;
+    public InventoryItem(Integer id, User user, String itemName, Integer quantity, Integer slotPosition) {
+        this.id = id;
         this.user = user;
         this.itemName = itemName;
         this.quantity = quantity;
         this.slotPosition = slotPosition;
     }
 
-    public Integer getItemId() {
-        return itemId;
+    public Integer getid() {
+        return id;
     }
 
-    public void setItemId(Integer itemId) {
-        this.itemId = itemId;
+    public void setid(Integer id) {
+        this.id = id;
     }
 
     public User getUser() {
@@ -76,7 +76,7 @@ public class InventoryItem {
     @Override
     public String toString() {
         return "InventoryItem{" +
-                "itemId=" + itemId +
+                "id=" + id +
                 ", user=" + user +
                 ", itemName='" + itemName + '\'' +
                 ", quantity=" + quantity +

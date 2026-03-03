@@ -1,6 +1,5 @@
 package com.example.reactive_roots.controllers;
 
-
 import com.example.reactive_roots.models.InventoryItem;
 import com.example.reactive_roots.repositories.InventoryItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,41 +14,52 @@ import java.awt.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/game")
+@RequestMapping("/api/inventory")
 public class InventoryItemController {
 
-    InventoryItemRepository inventoryItemRepository;
+    InventoryItemRepository repository;
 
-    public InventoryItemController(InventoryItemRepository inventoryItemRepository) {
-        this.inventoryItemRepository = inventoryItemRepository;
+    public InventoryItemController(InventoryItemRepository repository) {
+        this.repository = repository;
     }
 
     // get all items
     @GetMapping("/items")
     public ResponseEntity<List<InventoryItem>> getAllItems() {
-        return ResponseEntity.ok(inventoryItemRepository.findAll()); // 200
+        return ResponseEntity.ok(repository.findAll()); // 200
     }
 
     // get an item
-    @GetMapping("/{itemId}")
-    public ResponseEntity<InventoryItem> getItemById(@PathVariable int itemId) throws NoResourceFoundException {
-        return inventoryItemRepository.findById(itemId)
+    @GetMapping("/{id}")
+    public ResponseEntity<InventoryItem> getItemById(@PathVariable int id) throws NoResourceFoundException {
+        return repository.findById(id)
                 .map(ResponseEntity::ok)
-                .orElseThrow(() -> new NoResourceFoundException(HttpMethod.GET, "/game/" + itemId, null));
+                .orElseThrow(() -> new NoResourceFoundException(HttpMethod.GET, "/game/" + id, null));
     }
 
     // add new item
     @PostMapping
     public ResponseEntity<InventoryItem> addItem(@RequestBody InventoryItem item) {
-        InventoryItem savedItem = inventoryItemRepository.save(item);
+        InventoryItem savedItem = repository.save(item);
         return new ResponseEntity<>(savedItem, HttpStatus.CREATED); // 201
     }
 
+    // edit existing item
+    @PutMapping("/{id}")
+    public ResponseEntity<InventoryItem> updateItemQuantity(@PathVariable int id, @RequestBody InventoryItem details) {
+        return repository.findById(id)
+                .map(item -> {
+                    item.setQuantity(details.getQuantity());
+                    return ResponseEntity.ok(repository.save(item));
+                })
+                .orElse(ResponseEntity.notFound().build()); // 404
+    }
+
     // delete existing item
-    @DeleteMapping("/{itemId}")
-    public ResponseEntity<Void> deleteItem(@PathVariable int itemId) {
-        if (inventoryItemRepository.existsById(itemId)) {
-            inventoryItemRepository.deleteById(itemId);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteItem(@PathVariable int id) {
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
             return ResponseEntity.noContent().build(); // 204
         }
         return ResponseEntity.notFound().build(); // 404 if missing
