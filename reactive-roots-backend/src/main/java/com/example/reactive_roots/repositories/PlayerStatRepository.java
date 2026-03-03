@@ -4,4 +4,5 @@ import com.example.reactive_roots.models.PlayerStat;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PlayerStatRepository extends JpaRepository<PlayerStat, Integer> {
+    PlayerStat findByUser(int userId);
 }

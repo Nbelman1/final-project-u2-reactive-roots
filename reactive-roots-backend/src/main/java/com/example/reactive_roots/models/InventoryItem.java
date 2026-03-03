@@ -1,5 +1,6 @@
 package com.example.reactive_roots.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -8,22 +9,23 @@ public class InventoryItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int itemId;
+    private Integer itemId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private User user;
 
     private String itemName;
 
-    private int quantity;
+    private Integer quantity;
 
-    private int slotPosition;
+    private Integer slotPosition;
 
     public InventoryItem() {
     }
 
-    public InventoryItem(int itemId, User user, String itemName, int quantity, int slotPosition) {
+    public InventoryItem(Integer itemId, User user, String itemName, Integer quantity, Integer slotPosition) {
         this.itemId = itemId;
         this.user = user;
         this.itemName = itemName;
@@ -31,11 +33,11 @@ public class InventoryItem {
         this.slotPosition = slotPosition;
     }
 
-    public int getItemId() {
+    public Integer getItemId() {
         return itemId;
     }
 
-    public void setItemId(int itemId) {
+    public void setItemId(Integer itemId) {
         this.itemId = itemId;
     }
 
@@ -43,7 +45,7 @@ public class InventoryItem {
         return user;
     }
 
-    public void setUserId(User user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
@@ -55,19 +57,19 @@ public class InventoryItem {
         this.itemName = itemName;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
-    public int getSlotPosition() {
+    public Integer getSlotPosition() {
         return slotPosition;
     }
 
-    public void setSlotPosition(int slotPosition) {
+    public void setSlotPosition(Integer slotPosition) {
         this.slotPosition = slotPosition;
     }
 
