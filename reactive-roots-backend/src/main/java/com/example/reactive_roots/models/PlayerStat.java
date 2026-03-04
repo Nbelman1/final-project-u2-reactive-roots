@@ -12,7 +12,7 @@ public class PlayerStat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @OneToOne
     @JoinColumn(name = "user_id")
@@ -26,18 +26,18 @@ public class PlayerStat {
     public PlayerStat() {
     }
 
-    public PlayerStat(int id, User user, int expWoodcutting, int levelWoodcutting) {
+    public PlayerStat(Integer id, User user, int expWoodcutting, int levelWoodcutting) {
         this.id = id;
         this.user = user;
         this.expWoodcutting = expWoodcutting;
         this.levelWoodcutting = levelWoodcutting;
     }
 
-    public int getid() {
+    public Integer getid() {
         return id;
     }
 
-    public void setid(int id) {
+    public void setid(Integer id) {
         this.id = id;
     }
 

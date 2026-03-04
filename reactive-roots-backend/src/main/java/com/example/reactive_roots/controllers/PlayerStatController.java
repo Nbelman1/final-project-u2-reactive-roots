@@ -55,7 +55,7 @@ public class PlayerStatController {
     public ResponseEntity<Void> deleteStatsByPlayer(@PathVariable int id) {
         if (repository.existsById(id)) {
             repository.deleteById(id);
-            return ResponseEntity.noContent().build(); // 204
+            return ResponseEntity.noContent().build(); // 204 if success
         }
         return ResponseEntity.notFound().build(); // 404
     }

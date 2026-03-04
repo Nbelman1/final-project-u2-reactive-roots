@@ -60,7 +60,7 @@ public class InventoryItemController {
     public ResponseEntity<Void> deleteItem(@PathVariable int id) {
         if (repository.existsById(id)) {
             repository.deleteById(id);
-            return ResponseEntity.noContent().build(); // 204
+            return ResponseEntity.noContent().build(); // 204 if successful
         }
         return ResponseEntity.notFound().build(); // 404 if missing
     }
