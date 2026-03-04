@@ -1,0 +1,40 @@
+package com.example.reactive_roots.services;
+
+import com.example.reactive_roots.dto.InventoryItemDTO;
+import com.example.reactive_roots.dto.PlayerSessionDTO;
+import com.example.reactive_roots.models.InventoryItem;
+import com.example.reactive_roots.models.PlayerStat;
+import com.example.reactive_roots.repositories.InventoryItemRepository;
+import com.example.reactive_roots.repositories.PlayerStatRepository;
+import com.example.reactive_roots.repositories.UserRepository;
+
+import java.util.List;
+
+public class PlayerService {
+
+    private final PlayerStatRepository playerStatRepository;
+    private final InventoryItemRepository inventoryItemRepository;
+    private final UserRepository userRepository;
+
+    public PlayerService(PlayerStatRepository playerStatRepository, InventoryItemRepository inventoryItemRepository, UserRepository userRepository) {
+        this.playerStatRepository = playerStatRepository;
+        this.inventoryItemRepository = inventoryItemRepository;
+        this.userRepository = userRepository;
+    }
+
+    // map through inventory items belonging to user with userId, return List with itemName, quantity, slotPosition
+    public PlayerSessionDTO getSessionData(int userId) {
+        PlayerStat stats = playerStatRepository.findByUser(userId);
+        List<InventoryItem> items = inventoryItemRepository.findByUserId(userId);
+
+        List<InventoryItemDTO> itemDTOs = items.stream().map(item -> {
+            InventoryItemDTO dto = new InventoryItemDTO();
+            dto.setItemName(item.getItemName());
+            dto.setQuantity(item.getQuantity());
+            dto.setSlotPosition(item.getSlotPosition());
+            return dto;
+        }).toList();
+
+        return new PlayerSessionDTO(userId, stats.getExpWoodcutting(), itemDTOs);
+    }
+}
