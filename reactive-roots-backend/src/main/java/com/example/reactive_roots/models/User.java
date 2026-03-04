@@ -1,8 +1,10 @@
 package com.example.reactive_roots.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -18,6 +20,10 @@ public class User {
     private String password;
 
     private LocalDate dateCreated;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<InventoryItem> inventoryItems;
 
     public User() {
     }

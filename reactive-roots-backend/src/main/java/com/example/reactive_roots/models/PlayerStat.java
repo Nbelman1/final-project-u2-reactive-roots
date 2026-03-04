@@ -23,10 +23,6 @@ public class PlayerStat {
 
     private int levelWoodcutting;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
-    private List<InventoryItem> inventoryItems;
-
     public PlayerStat() {
     }
 

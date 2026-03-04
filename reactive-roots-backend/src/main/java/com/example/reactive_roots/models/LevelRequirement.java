@@ -3,7 +3,7 @@ package com.example.reactive_roots.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "level_requirement")
+@Table(name = "level_requirements")
 public class LevelRequirement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,4 +45,6 @@ public class LevelRequirement {
     public void setExpRequired(int expRequired) {
         this.expRequired = expRequired;
     }
+
+//    TODO: fix bug on app startup -> finish testing controllers in postman
 }

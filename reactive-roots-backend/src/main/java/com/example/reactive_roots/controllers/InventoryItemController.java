@@ -30,7 +30,7 @@ public class InventoryItemController {
     }
 
     // get an item
-    @GetMapping("/{id}")
+    @GetMapping("items/{id}")
     public ResponseEntity<InventoryItem> getItemById(@PathVariable int id) throws NoResourceFoundException {
         return repository.findById(id)
                 .map(ResponseEntity::ok)

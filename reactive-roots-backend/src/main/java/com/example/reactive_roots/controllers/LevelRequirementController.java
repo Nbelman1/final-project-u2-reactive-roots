@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/exp-table")
+@RequestMapping("/api/levels")
 @CrossOrigin(origins = "http://localhost:3000") // allow React to access
 public class LevelRequirementController {
 
