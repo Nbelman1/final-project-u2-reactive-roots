@@ -21,7 +21,7 @@ public class User {
 
     private LocalDate dateCreated;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<InventoryItem> inventoryItems;
 

@@ -56,6 +56,7 @@ public class InventoryItemController {
     }
 
     // delete existing item
+//    TODO: not sending user.id to table
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteItem(@PathVariable int id) {
         if (repository.existsById(id)) {
